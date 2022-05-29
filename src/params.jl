@@ -404,7 +404,7 @@ function LiC6_Chen2020(θ, funcs)
     # Reaction rate equation
     funcs.rxn_n = rxn_BV
     # Open circuit voltage (OCV or OCP) equation
-    funcs.OCV_n = OCV_LCO
+    funcs.OCV_n = OCV_LiC6
 end
 
 function system_LCO_LiC6_Chen2020(θ, funcs, cathode, anode;
