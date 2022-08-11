@@ -298,7 +298,7 @@ function Chen2020(θ, funcs)
     # everything here can be modified without regenerating the sol/jacobian.
     
     # Solid diffusion coefficient [m/s²]
-    θ[:D_sp] = 1e-14
+    θ[:D_sp] = 4e-15
     # Electrolyte diffusion coefficient [m/s²]
     θ[:D_p] = 7.5e-10
     # BV reaction rate constant [m^2.5/(mol^1/2⋅s)]
@@ -307,19 +307,19 @@ function Chen2020(θ, funcs)
     θ[:λ_MHC_p] = 6.26e-20
     # Stoichiometry coefficients, θ_min_p > θ_max_p [-]
     θ[:θ_min_p] = 0.99174
-    θ[:θ_max_p] = 0.49550
+    θ[:θ_max_p] = 0.2661
     # Thickness of the electrode [m]
-    θ[:l_p] = 80e-6
+    θ[:l_p] = 75.6e-6
     # Conductivity [S/m]
     θ[:σ_p] = 100.0
     # Porosity
-    θ[:ϵ_p] = 0.47
+    θ[:ϵ_p] = 0.335
     # Filler fraction [note: (active material fraction) = (1 - (porosity) - (filler fraction))]
-    θ[:ϵ_fp] = 0.025
+    θ[:ϵ_fp] = 0.02
     # Bruggeman exponent
-    θ[:brugg_p] = 1.5
+    θ[:brugg_p] = 2.43
     # Maximum solid interpolate_electrolyte_concentration
-    θ[:c_max_p] = 51554.0
+    θ[:c_max_p] = 51765.0
     # Solid particle radius
     θ[:Rp_p] = 2e-6
 
@@ -349,7 +349,7 @@ end
 function LiC6_Chen2020(θ, funcs)
     
     # Solid diffusion coefficient [m/s²]
-    θ[:D_sn] = 3.9e-14
+    θ[:D_sn] = 3.3e-14
     # Electrolyte diffusion coefficient [m/s²]
     θ[:D_n] = 7.5e-10
     # BV reaction rate constant [m^2.5/(mol^1/2⋅s)]
@@ -357,20 +357,20 @@ function LiC6_Chen2020(θ, funcs)
     # MHC reaction, reorganization energy [J] (only needed for MHC reaction)
     θ[:λ_MHC_n] = 6.26e-20
     # Stoichiometry coefficients, θ_max_n > θ_min_n [-]
-    θ[:θ_max_n] = 0.85510
-    θ[:θ_min_n] = 0.01429
+    θ[:θ_max_n] = 0.9014
+    θ[:θ_min_n] = 0.0279
     # Thickness of the electrode [m]
-    θ[:l_n] = 88e-6
+    θ[:l_n] = 85.2e-6
     # Conductivity [S/m]
-    θ[:σ_n] = 100.0
+    θ[:σ_n] = 215
     # Porosity
-    θ[:ϵ_n] = 0.485
+    θ[:ϵ_n] = 0.25
     # Filler fraction [note: (active material fraction) = (1 - (porosity) - (filler fraction))]
-    θ[:ϵ_fn] = 0.0326
+    θ[:ϵ_fn] = 0
     # Bruggeman exponent
-    θ[:brugg_n] = 4.0
+    θ[:brugg_n] = 2.91
     # Maximum solid interpolate_electrolyte_concentration
-    θ[:c_max_n] = 30555.0
+    θ[:c_max_n] = 29583
     # Solid particle radius
     θ[:Rp_n] = 2e-6
 
@@ -471,7 +471,7 @@ function system_LCO_LiC6_Chen2020(θ, funcs, cathode, anode;
     θ[:D_s] = 7.5e-10
 
     # Electrode thicknesses [m/s²]
-    θ[:l_s] = 25e-6
+    θ[:l_s] = 12e-6
     θ[:l_a] = 10e-6
     θ[:l_z] = 10e-6
 
@@ -481,13 +481,13 @@ function system_LCO_LiC6_Chen2020(θ, funcs, cathode, anode;
     θ[:σ_z] = 5.8411e7
     
     # Porosity
-    θ[:ϵ_s] = 0.724
+    θ[:ϵ_s] = 0.47
     
     # Bruggeman exponent
-    θ[:brugg_s] = 4.0
+    θ[:brugg_s] = 2.57
     
     # Transference number [-]
-    θ[:t₊] = 0.364
+    θ[:t₊] = 0.2594
     
     # Initial electrolyte concentration [mol/m³]
     θ[:c_e₀] = 1000.0
