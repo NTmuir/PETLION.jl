@@ -178,7 +178,7 @@ function OCV_Chen2020_Pos(θ_p, T=298.15, p=nothing)
     c2 = 0.02179
 
     # Compute the variation of OCV with respect to temperature variations [V/K]
-    ∂U∂T_p = a1 * exp.(-((θ_p  - b1).^ 2) / c1) + a2 * exp.(-((θ_p  - b2).^2) / c2)
+    ∂U∂T_p = 0.04006(exp.(-1*((((θ_p.-0.2828)).^ 2)./0.0009855))).-0.06656*(exp.((((θ_p.-0.8032)).^2)./0.02179))
 
     # if T == T_ref exactly (which may be true for isothermal runs), don't calculate ∂U∂T
     U_p += temperature_switch( T .== T_ref, 0, ∂U∂T_p.*(T .- T_ref), p )
@@ -204,7 +204,7 @@ function OCV_Chen2020_Neg(θ_n, T=298.15, p=nothing)
     d1 = 63.9
     
     # Compute the variation of OCV with respect to temperature variations [V/K]
-    ∂U∂T_n =  (a0*θ_n + a2*exp.(-((θ_n - b2)).^2 / c2) + a1*((tanh.(d1 * (θ_n - (b1 - c1)))) - (tanh.(d1 * (θ_n - (b1 + c1))))) + c0)
+    ∂U∂T_n =  .- 0.1112θ_n .+0.3561exp.((-1*((θ_n .- 0.08309)).^2)./0.004616) .- 0.09002((tanh.(63.9*(θ_n.-(0.4955-0.1122)))) .- (tanh.(63.9*(θ_n.-(0.4955.+0.1122))))) .+ 0.02914
     
     
     U_n += temperature_switch( T .== T_ref, 0, ∂U∂T_n.*(T .- T_ref), p )
