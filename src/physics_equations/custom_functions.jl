@@ -170,15 +170,10 @@ function OCV_Chen2020_Pos(θ_p, T=298.15, p=nothing)
     # Define the OCV for the positive electrode
     U_p =   .-0.8090*θ_p .-0.0428*(tanh.(18.5138(θ_p.-0.5542))) .-17.7326*(tanh.(15.7890(θ_p.-0.3117))) .+17.5842*(tanh.(15.9308(θ_p.-0.3120))) .+4.4875 
 
-    a1 = 0.04006
-    a2 = -0.06656
-    b1 = 0.2828
-    b2 = 0.8032
-    c1 = 0.0009855
-    c2 = 0.02179
+
 
     # Compute the variation of OCV with respect to temperature variations [V/K]
-    ∂U∂T_p = 0.04006(exp.(-1*((((θ_p.-0.2828)).^ 2)./0.0009855))).-0.06656*(exp.((((θ_p.-0.8032)).^2)./0.02179))
+    ∂U∂T_p = zeros(length(U_p)) #0.04006(exp.(-1*((((θ_p.-0.2828)).^ 2)./0.0009855))).-0.06656*(exp.((((θ_p.-0.8032)).^2)./0.02179))
 
     # if T == T_ref exactly (which may be true for isothermal runs), don't calculate ∂U∂T
     U_p += temperature_switch( T .== T_ref, 0, ∂U∂T_p.*(T .- T_ref), p )
@@ -193,18 +188,10 @@ function OCV_Chen2020_Neg(θ_n, T=298.15, p=nothing)
     # Calculate the open circuit voltage of the battery in the negative electrode
     U_n =  1.9793exp.(-39.3631θ_n) .+ 0.2482 .- 0.0909(tanh.(29.8538(θ_n.-0.1234))) .- 0.04478(tanh.(14.9159(θ_n.-0.2769))) .- 0.0205*(tanh.(30.4444(θ_n.-0.6103)))
 
-    a0 = -0.1112
-    a1 = -0.09002
-    a2 = 0.3561
-    b1 = 0.4955
-    b2 = 0.08309
-    c0 = 0.02914
-    c1 = 0.1122
-    c2 = 0.004616
-    d1 = 63.9
+
     
     # Compute the variation of OCV with respect to temperature variations [V/K]
-    ∂U∂T_n =  .- 0.1112θ_n .+0.3561exp.((-1*((θ_n .- 0.08309)).^2)./0.004616) .- 0.09002((tanh.(63.9*(θ_n.-(0.4955-0.1122)))) .- (tanh.(63.9*(θ_n.-(0.4955.+0.1122))))) .+ 0.02914
+    ∂U∂T_n =  zeros(length(U_n))# .- 0.1112θ_n .+0.3561exp.((-1*((θ_n .- 0.08309)).^2)./0.004616) .- 0.09002((tanh.(63.9*(θ_n.-(0.4955-0.1122)))) .- (tanh.(63.9*(θ_n.-(0.4955.+0.1122))))) .+ 0.02914
     
     
     U_n += temperature_switch( T .== T_ref, 0, ∂U∂T_n.*(T .- T_ref), p )
